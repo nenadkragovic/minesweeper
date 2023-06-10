@@ -1,23 +1,46 @@
-import logo from './logo.svg';
 import './App.css';
-import Field from './components/Filed';
+import Field from './components/Field/Filed';
 import NewGameModal from './components/ui/new-game-modal'
+import { useState } from 'react';
 
 function App() {
+
+  const [gameActive, setGameActive] = useState(false);
+  const [gameProps, setGameProps] = useState({
+    width: 10,
+    height: 10,
+    numberOfMines: 10
+  });
+
+  const startNewGame = (w, h, m) => {
+    setGameProps({
+      width: w,
+      height: h,
+      numberOfMines: m
+    });
+    setGameActive(true);
+  }
+
   return (
       <div className="content">
         <div className="header">
-          <h>
+          <h3>
             <p>/*=====================================================================================================================/</p>
             <p>
                 <span>Score: <div className="score">0</div></span>
-                <span><button className="new-game-btn">New Game</button></span>
+                <span><button className="new-game-btn" onClick={() => setGameActive(false)}>New Game</button></span>
             </p>
             <p>/=====================================================================================================================*/</p>
-          </h>
-          <NewGameModal/>
+          </h3>
         </div>
 
+        <div className="main">
+            {
+              gameActive ?
+                <Field width={gameProps.width} height={gameProps.height} numberOfMines={gameProps.numberOfMines} /> :
+                <NewGameModal toggleStartNewGame={startNewGame}/>
+            }
+        </div>
       </div>
   );
 }

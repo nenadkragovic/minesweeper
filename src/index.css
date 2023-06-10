@@ -11,11 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.cell {
-  width: 30px;
-  height: 30px;
-  position: relative;
-  display: block;
-  float: left;
-}
