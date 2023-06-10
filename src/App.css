@@ -1,5 +1,5 @@
 body {
-  background-color: #0D0208;
+  background-color: rgb(193, 193, 193);
   color: #003B00;
   column-fill: auto;
   font-family: Consolas;
@@ -9,10 +9,10 @@ body {
 .header {
   width: 100%;
   position: relative;
-  height: 10rem;
+  height: 5rem;
 }
 .new-game-btn {
-  background: #0D0208;
+  background: rgb(151,151,151);;
   color :#003B00;
   padding: 0.5rem;
   width: 15em;
@@ -37,8 +37,4 @@ body {
   display: block;
   float: left;
   text-align: center;
-}
-.main {
-  /* width: 80%;
-  left: 10% */
 }

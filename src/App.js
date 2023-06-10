@@ -25,12 +25,10 @@ function App() {
       <div className="content">
         <div className="header">
           <h3>
-            <p>/*=====================================================================================================================/</p>
-            <p>
-                <span>Score: <div className="score">0</div></span>
-                <span><button className="new-game-btn" onClick={() => setGameActive(false)}>New Game</button></span>
-            </p>
-            <p>/=====================================================================================================================*/</p>
+            <nav>
+            <span>Score: <div className="score">0</div></span>
+              <span><button className="new-game-btn" onClick={() => setGameActive(false)}>New Game</button></span>
+            </nav>
           </h3>
         </div>
 
