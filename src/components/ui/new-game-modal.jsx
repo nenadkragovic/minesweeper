@@ -21,7 +21,7 @@ export default function NewGameModal(props) {
     };
 
     const handleSubmit = () => {
-        props.toggleStartNewGame(fieldWidth, fieldWidth, numberOfMines);
+        props.toggleStartNewGame(fieldWidth, filedHeight, numberOfMines);
     }   
 
     return (
