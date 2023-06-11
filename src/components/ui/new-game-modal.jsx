@@ -4,9 +4,9 @@ import { useState } from 'react';
 
 export default function NewGameModal(props) {
 
-    const [fieldWidth, setFieldWidth] = useState(6);
-    const [filedHeight, setFieldheight] = useState(7);
-    const [numberOfMines, setNumberOfMines] = useState(10);
+    const [fieldWidth, setFieldWidth] = useState(15);
+    const [filedHeight, setFieldheight] = useState(10);
+    const [numberOfMines, setNumberOfMines] = useState(20);
 
     const handleInputChangeWidth = (event) => {
         setFieldWidth(event.target.value);

@@ -9,7 +9,6 @@ export const ExplodeContextProvider = ({ children }) => {
 
   const triggerExplosion = () => {
     setExploded(true);
-    alert('You lost!');
   };
 
   return (

@@ -25,10 +25,13 @@
     }
   }
   input[type=submit] {
-    background:  rgb(151,151,151);
     color :#003B00;
     padding: 1rem;
     width: 15em;
-    border: 3px dashed #003B00;
+    background: rgb(186,186,186);
+    border-top: 0.3rem solid rgb(233, 233, 233);
+    border-left: 0.3rem solid rgb(233, 233, 233);
+    border-right: 0.3rem solid rgb(151, 151, 151);
+    border-bottom: 0.3rem solid rgb(151, 151, 151);
   }
 }

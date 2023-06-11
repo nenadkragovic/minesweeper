@@ -10,18 +10,21 @@ export default function Field(props) {
         gridTemplateColumns: `repeat(${props.width}, 0fr)`,
         alignItems: 'center',
         justifyContent: 'center',
-        width: `calc(${props.width * 5}rem + 0.8rem)`,
-        height: `calc(${props.height * 5}rem + 0.8rem)`
+        width: `calc(${props.width * 3}rem + 0.8rem)`,
+        height: `calc(${props.height * 3}rem + 0.8rem)`
     };
 
     // create empty matrix
-    const matrix = [];
+    let mat = [];
     for (let row = 0; row < props.height; row++) {
       const rowArray = [];
       for (let col = 0; col < props.width; col++) {
-        rowArray.push(0);
+        rowArray.push({
+            containsBomb: false,
+            checked: false
+        });
       }
-      matrix.push(rowArray);
+      mat.push(rowArray);
     }
 
     // populate matrix with bombs
@@ -31,12 +34,15 @@ export default function Field(props) {
         let i = Math.floor(randomIndex / props.width);
         let j = randomIndex % props.width;
 
-        if (matrix[i][j] === 1)
+        if (mat[i][j].containsBomb)
             continue;
 
-        matrix[i][j] = 1;
+        mat[i][j].containsBomb = true;
         generatedBombsCount++;
     }
+
+    // use State
+    const [matrix, setMatrix] = useState(mat);
 
     const directions = [
         [1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]
@@ -44,7 +50,7 @@ export default function Field(props) {
 
     const calculateNumberOfNeighbouringBombs = (row, col) => {
 
-        if (matrix[row][col] === 1)
+        if (matrix[row][col].containsBomb)
             return <div>&#128163;</div>;
 
         let count = 0;
@@ -55,10 +61,10 @@ export default function Field(props) {
       
           if (
             newRow >= 0 &&
-            newRow < matrix.length &&
+            newRow < props.height &&
             newCol >= 0 &&
-            newCol < matrix[0].length &&
-            matrix[newRow][newCol] === 1
+            newCol < props.width &&
+            matrix[newRow][newCol].containsBomb
           ) {
             count++;
           }
@@ -74,24 +80,32 @@ export default function Field(props) {
         
             if (
               newRow >= 0 &&
-              newRow < matrix.length &&
+              newRow < props.height &&
               newCol >= 0 &&
-              newCol < matrix[0].length
+              newCol < props.width
             ) {
-                // TODO: try to find a way to trigger a click in react without manipulating DOM directly
-                document.getElementById(`cell-${newRow*props.width +newCol}`).click();
+                let copy = [...matrix];
+                copy[newRow][newCol].checked = true;
+                setMatrix(copy);
             }
           }
     }
 
+    const setChecked = (i,j) => {
+        let copy = [...matrix];
+        copy[i][j].checked = true;
+        setMatrix(copy);
+    }
+
     const cells = []
-    for (let i = 0; i < matrix.length; i++)
-        for (let j =0; j< matrix[0].length; j++)
+    for (let i = 0; i < props.height; i++)
+        for (let j =0; j < props.width; j++)
             cells.push(
                 <Cell
                     key={i*props.width +j}
-                    index={i*props.width +j}
-                    containsBomb={matrix[i][j] === 1}
+                    containsBomb={matrix[i][j].containsBomb}
+                    checked={matrix[i][j].checked}
+                    setChecked={() => setChecked(i,j)}
                     numberOfNeighbouringBombs={calculateNumberOfNeighbouringBombs(i, j)}
                     triggerNeighbouringFields={() => triggerNeighbouringFields(i, j)}
                 />);
