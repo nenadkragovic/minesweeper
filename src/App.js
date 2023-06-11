@@ -6,18 +6,23 @@ import { useState } from 'react';
 function App() {
 
   const [gameActive, setGameActive] = useState(false);
-  const [gameProps, setGameProps] = useState({
-    width: 10,
-    height: 10,
-    numberOfMines: 10
-  });
+  const [fieldWidth, setFieldWidth] = useState(15);
+  const [filedHeight, setFieldheight] = useState(10);
+  const [numberOfMines, setNumberOfMines] = useState(20);
 
-  const startNewGame = (w, h, m) => {
-    setGameProps({
-      width: w,
-      height: h,
-      numberOfMines: m
-    });
+  const handleInputChangeWidth = (event) => {
+      setFieldWidth(event.target.value);
+  };
+
+  const handleInputChangeHeight = (event) => {
+      setFieldheight(event.target.value);
+  };
+
+  const handleInputChangeNumberOfMines = (event) => {
+      setNumberOfMines(event.target.value);
+  };
+
+  const startNewGame = () => {
     setGameActive(true);
   }
 
@@ -35,8 +40,16 @@ function App() {
         <div className="main">
             {
               gameActive ?
-                <Field width={gameProps.width} height={gameProps.height} numberOfMines={gameProps.numberOfMines} /> :
-                <NewGameModal toggleStartNewGame={startNewGame}/>
+                <Field width={fieldWidth} height={filedHeight} numberOfMines={numberOfMines} /> :
+                <NewGameModal
+                   toggleStartNewGame={startNewGame}
+                   fieldWidth={fieldWidth}
+                   filedHeight={filedHeight}
+                   numberOfMines={numberOfMines}
+                   handleInputChangeWidth={handleInputChangeWidth}
+                   handleInputChangeHeight={handleInputChangeHeight}
+                   handleInputChangeNumberOfMines={handleInputChangeNumberOfMines}
+                />
             }
         </div>
       </div>
