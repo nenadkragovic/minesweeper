@@ -1,22 +1,32 @@
 import { React, useState, useContext, useEffect } from 'react';
 import './Cell.scss'
-import { ExplodeContext } from '../ExplodeContext/ExplodeContext'
+import { GameContext } from '../GameContextProvider/GameContextProvider'
 
 export default function Cell(props) {
-    const [flag, setFlag] = useState(false);
-    const { exploded, triggerExplosion } = useContext(ExplodeContext);
 
+    const {
+        exploded,
+        gameWon,
+        triggerExplosion,
+        calculateNumberOfNeighbouringBombs,
+        triggerNeighbouringFields,
+        setChecked,
+        setFlag
+    } = useContext(GameContext);
+
+    let numberOfNeighbouringBombs = calculateNumberOfNeighbouringBombs(props.row, props.col);
     
     useEffect(() => {
-        if (props.checked && props.numberOfNeighbouringBombs == 0)
-            props.triggerNeighbouringFields();
+        if (props.checked && numberOfNeighbouringBombs == 0)
+            triggerNeighbouringFields(props.row, props.col);
       }, [props.checked]);
 
     const handleRightClick = (event) => {
         event.preventDefault();
         if (props.checked || exploded)
             return;
-        setFlag(true);
+
+        setFlag(props.row, props.col, !props.flag);
     };
 
     const handleLeftClick = (event) => {
@@ -25,14 +35,14 @@ export default function Cell(props) {
         if (exploded)
             return;
 
-        props.setChecked();
-        setFlag(false);
+        setChecked(props.row, props.col);
+        setFlag(props.row, props.col, false);
 
         if (props.containsBomb)
             triggerExplosion();
         else {
             if (props.numberOfNeighbouringBombs === 0)
-                props.triggerNeighbouringFields();
+                props.triggerNeighbouringFields(props.row, props.col);
         }
     };
       
@@ -40,16 +50,16 @@ export default function Cell(props) {
         <button
             className={
                 `cell 
-                ${props.checked && (!flag || props.containsBomb) || (exploded && props.containsBomb) ? 'checked' : ''}
-                number-${props.numberOfNeighbouringBombs}`}
-            disabled={exploded}
+                ${props.checked && (!props.flag || props.containsBomb) || (exploded && props.containsBomb) ? 'checked' : ''}
+                number-${numberOfNeighbouringBombs}`}
+            disabled={exploded || gameWon}
             onClick={handleLeftClick} onContextMenu={handleRightClick} >
                 {
                     props.containsBomb && exploded ?
                         <div>&#128163;</div> : 
-                        flag ?
+                        props.flag ?
                             <div className='flag'>&#128681;</div> :
-                            props.checked ? props.numberOfNeighbouringBombs : null
+                            props.checked ? numberOfNeighbouringBombs : null
                 }
         </button>
     );
