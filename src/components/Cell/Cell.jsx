@@ -27,7 +27,7 @@ export default function Cell(props) {
 
         props.setChecked();
         setFlag(false);
-        
+
         if (props.containsBomb)
             triggerExplosion();
         else {
@@ -38,7 +38,10 @@ export default function Cell(props) {
       
     return (
         <button
-            className={`cell ${props.checked && (!flag || props.containsBomb) || (exploded && props.containsBomb) ? 'checked' : ''}`}
+            className={
+                `cell 
+                ${props.checked && (!flag || props.containsBomb) || (exploded && props.containsBomb) ? 'checked' : ''}
+                number-${props.numberOfNeighbouringBombs}`}
             disabled={exploded}
             onClick={handleLeftClick} onContextMenu={handleRightClick} >
                 {

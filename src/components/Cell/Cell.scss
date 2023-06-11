@@ -11,9 +11,37 @@
     text-align: center;
     vertical-align: center;
     align-self: center;
+    font-weight: 800;
 }
 
 .cell.checked {
     border: 0;
     font-size: 1.7rem;
+}
+.number-0 {
+    color: rgb(151,151,151);
+}
+.number-1 {
+    color: blue;
+}
+.number-2 {
+    color: green;
+}
+.number-3 {
+    color: red;
+}
+.number-4 {
+    color: rgb(0,0,128);
+}
+.number-5 {
+    color: rgb(128,0,0);
+}
+.number-6 {
+    color: rgb(0,128,128);
+}
+.number-7 {
+    color: black;
+}
+.number-8 {
+    color: rgb(128,128,128);
 }
