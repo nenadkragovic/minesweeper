@@ -10,8 +10,6 @@ function App() {
   const [fieldWidth, setFieldWidth] = useState(15);
   const [filedHeight, setFieldheight] = useState(10);
   const [numberOfMines, setNumberOfMines] = useState(20);
-  const [time, setTime] = useState(0);
-  let timerInterval = 0;
 
   const handleInputChangeWidth = (event) => {
       setFieldWidth(event.target.value);
@@ -28,11 +26,6 @@ function App() {
   const startNewGame = () => {
     newGame(fieldWidth, filedHeight, numberOfMines, function() {
       setGameActive(true);
-      // timerInterval = setInterval(function(){
-      //   let t = time;
-  
-      //   setTime(t++);
-      // }, 1000);
     });
   }
 
@@ -43,7 +36,6 @@ function App() {
         
           <div className="header">
             <nav className="nav">
-                <div className="time">Time: <div className="score">{time}</div></div>
                 <div className="message">
                   {
                     exploded ? <span style={{ color: "red"}}>You lost!</span> : null

@@ -32,13 +32,6 @@ body {
   padding: 1.5rem;
 }
 
-.nav .time {
-  width: 25%;
-  align-content: center;
-  flex-direction: row;
-  align-self: center;
-  text-align: center;
-}
 .nav .message {
   width: 50%;
   display: block;
@@ -47,5 +40,6 @@ body {
   font-size: 2rem;
 }
 .nav .new-game-btn-container {
-  width: 25%;
+  width: 50%;
+  text-align: center;
 }
